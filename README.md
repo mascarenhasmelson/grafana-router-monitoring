@@ -1,7 +1,7 @@
 # grafana-router-monitoring
 MikroTik Router(RB750Gr3) Monitoring WAN/LAN Ports using SNMP, Rsyslog, InfluxDB, Telegraf and Grafana
 
-This project provides a comprehensive monitoring solution for MikroTik routers, capturing both WAN and LAN performance metrics along with system logs for visualization and analysis in Grafana.
+This project provides a simple monitoring solution for MikroTik router(RB750Gr3) capturing both WAN and LAN performance metrics along with system logs for visualization and analysis in Grafana.
 
 By combining SNMP, Telegraf, InfluxDB, and Rsyslog, you can track router health, network activity, and troubleshoot issues with clear dashboards.
 
