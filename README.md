@@ -7,7 +7,7 @@ By combining SNMP, Telegraf, InfluxDB, and Rsyslog, you can track router health,
 
 Features
 * WAN & LAN Port Monitoring
-  ** Interface throughput (Tx/Rx)
+  * Interface throughput (Tx/Rx)
 
 Packet drops, errors, and utilization
 
