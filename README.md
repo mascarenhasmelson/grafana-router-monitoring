@@ -8,33 +8,56 @@ By combining SNMP, Telegraf, InfluxDB, and Rsyslog, you can track router health,
 Features
 * WAN & LAN Port Monitoring
   * Interface throughput (Tx/Rx)
+  * Packet drops, errors, and utilization
 
-Packet drops, errors, and utilization
+* Real-time  traffic monitor
+  * Router interface monitor,dhcp lease, volt and temperature via SNMP OIDs
+  * System uptime 
 
-Real-time and historical traffic trends
+* Syslog Collection with Rsyslog
+  * Centralized log aggregation from MikroTik
+  * Log monitoring (info, error, warning, critical)
 
-System Metrics via SNMP
+* Network Activity Tracking
+  * ICMP ping query time and response
+  * DNS resolver query latency
 
-CPU usage, memory consumption
+This is simple Mikrotik router monitoring I use in my home network using raspberry PI
 
-System uptime and temperature
+My network is quite simple, one Mikrotik router RB760iGS with IP address 192.168.20.1.
 
-Router identity (sysName)
+## Mikrotik Setup
 
-Syslog Collection with Rsyslog
+Enable SNMP on Mikrotik device you want to monitor:
 
-Centralized log aggregation from MikroTik
+```
+/snmp community set [ find default=yes ] name=telegraf
+# telegraf is community string name, you can change it based on your requirement
+/snmp set enabled=yes
+```
+Optional: if you want to collect logs from your Mikrotik device, you have to set "remote" action:
 
-Event monitoring (auth, firewall, DHCP, etc.)
+```
+# Change 192.168.30.249 to your rasp IP address.
+/system logging action set remote bsd-syslog=yes remote=192.168.30.249
 
-Easy filtering and correlation with metrics
+# Add all log level you wan to send.
+/system logging add action=remote topics=info
+/system logging add action=remote topics=error
+/system logging add action=remote topics=warning
+/system logging add action=remote topics=critical
+```
+# On Raspberry Pi
+Make sure to install docker 
 
-Network Activity Tracking
+## Rsyslog setup
+```
+sudo ln -s /path_to_mikrotik_configuration/mikrotik.conf /etc/rsyslog.d/mikrotik.conf
+sudo systemctl restart rsyslog
+```
+## Grafana Dashboard
+![Screenshot1](./imgs/1.png)
 
-ICMP ping query time and response
+![Screenshot2](./imgs/2.png)
 
-DNS resolver query latency
 
-Device activity on LAN interfaces
-
-Visualization in Grafana
